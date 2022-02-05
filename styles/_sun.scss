@@ -1,0 +1,46 @@
+@import "./variables";
+.sun-container {
+    position: fixed;
+    width: 950px;
+    margin: auto;
+    aspect-ratio: 1;
+    animation-fill-mode: forwards;
+    transform: rotate(55deg);
+    bottom: -450px;
+    left: 300px;
+    z-index: -1;
+}
+
+.animation-sun {
+    animation: move-sun $dayTime ease-in-out 0s alternate;
+}
+
+.sun {
+    background: $sunColor;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 80px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulse 1s linear infinite;
+}
+
+@keyframes move-sun {
+    0% {
+        transform: rotate(50deg);
+    }
+    100% {
+        transform: rotate(-140deg);
+    }
+}
+
+@keyframes pulse {
+    from {
+        box-shadow: 0 0 30px #ff0, 0 0 100px #ff0;
+    }
+    to {
+        box-shadow: 0 0 15px #ff0, 0 0 75px #ff0;
+    }
+}

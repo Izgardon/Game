@@ -1,0 +1,322 @@
+import { getCustomProperty, setCustomProperty, incrementCustomProperty } from "./customProperty.js";
+
+import { getSkyscraperRect, getSkyscraperRects } from "./skyscraper.js";
+
+
+
+
+
+
+//Variables
+
+
+export const manElem = document.querySelector('.man');
+
+let manFrame = 1;
+let keyState = {}
+    //Jumping
+let isJumping = false
+let hasJumped = false
+let yVelocity
+    //Climbing
+let isClimbingRight
+let isClimbingLeft
+    //RoofRunning
+let landed = false
+let onRoof
+
+//Constants
+const floor = 50;
+const movement = 8;
+const jumpSpeed = 12;
+const gravity = 0.03
+const downSpeed = 1.1
+const climbSpeed = 5
+
+console.log(getSkyscraperRects())
+    //Functions
+
+//Function used to get the man's rectangle
+export function getManRect() {
+    return manElem.getBoundingClientRect()
+}
+
+//setUpMan function runs when enter is pressed, adding the keydown functions and making sure man starts at beginning
+
+export function setUpMan() {
+    setCustomProperty(manElem, '--left', 0)
+
+    document.addEventListener("keydown", onJump)
+    document.addEventListener("keydown", wallJump)
+
+}
+
+//----------------------------------------------
+
+//Running function
+
+//Removing input delay with a keystate function to just return true if a key is down
+
+window.addEventListener('keydown', e => {
+
+    keyState[e.key] = true;
+
+}, true);
+
+window.addEventListener('keyup', e => {
+    keyState[e.key] = false
+}, true)
+
+
+//Main running function - adds a flip class for which direction he is going and also prevents character from going off left edge. Uses a custom property to incremet his position
+
+export function running() {
+    let manRect = getManRect()
+    if (keyState['d'] && !isClimbingRight) {
+        //Moving Right
+
+        frame();
+        incrementCustomProperty(manElem, "--left", movement)
+        manElem.classList.remove("flip")
+    }
+    if (keyState['a'] && !isClimbingLeft) {
+        if (manRect.left <= 0) return
+
+        //Moving Left
+        frame();
+
+        manElem.classList.add("flip")
+        incrementCustomProperty(manElem, "--left", -movement)
+    }
+
+}
+
+//Changing image frames
+
+function frame() {
+    //So picture doesnt change to running
+    if (isJumping) return
+        //To stop picture changing rapidly when both are pressed and man is still
+    if (keyState['d'] && keyState['a']) return
+        //Added this line below to use this function in other areas without it being constantly active
+    if (keyState['d'] || keyState['a']) {
+        //To delay the picture changing to every 4 frames
+        manFrame++
+        if (manFrame === 16) {
+            manFrame += -15
+        }
+        if (manFrame % 4 !== 0) return
+
+        manElem.src = `./images/spiderman-${manFrame}.png`
+    }
+
+
+
+}
+
+
+
+//--------------------------------------
+
+//Jumping (hasJumped) refers to if man has already jumped twice)
+
+
+
+function onJump(e) {
+    if (hasJumped) return
+    else {
+        landed = false
+            //First Jump
+        if (!isJumping && e.code === 'Space') {
+            isJumping = true
+            yVelocity = jumpSpeed
+                //Double Jump
+        } else if (isJumping && e.code === 'Space') {
+            isJumping = true
+            hasJumped = true
+            yVelocity = jumpSpeed
+
+
+        }
+    }
+}
+
+//Above function sets the Yvelocity to an immediate upward velocity which will then get incremented down
+
+export function jumping(delta) {
+    //check to see if man is climbing (will add a special case later)
+    if (isClimbingLeft || isClimbingRight) {
+        climbing()
+    } else {
+        if (!isJumping) return
+
+
+        //Incrementing velocity to mimic gravity effect using delta function
+
+        incrementCustomProperty(manElem, "--bottom", yVelocity);
+        yVelocity -= gravity * delta;
+        manElem.src = `./images/spiderman-jump.png`
+            //Landing on the ground
+        if (getCustomProperty(manElem, "--bottom") <= floor) {
+
+            resetJump()
+        }
+    }
+
+
+    // Holding S to go down faster using KeyState function
+    if (isJumping && (yVelocity < 0) && (keyState['s'])) {
+
+        yVelocity -= gravity * delta * downSpeed
+        incrementCustomProperty(manElem, "--bottom", yVelocity)
+
+
+    }
+}
+
+
+
+
+//Reset after landing on ground/platform
+
+function resetJump() {
+    manElem.src = `./images/spiderman-4.png`
+    setCustomProperty(manElem, "--bottom", floor)
+    isJumping = false
+    hasJumped = false
+
+    landed = false
+
+}
+
+
+//--------------------------------------------------
+
+// Climbing
+
+
+
+//Main climbing function - numbers adjusted so he climbs slightly inside the wall similar to a wall
+
+//Specific sides are noted as he can still move in the other direciton
+
+export function ifClimbing(delta) {
+    const manRect = getManRect();
+    const skyscraperRect = getSkyscraperRect();
+
+
+    if (manRect.right > skyscraperRect.left + 40 && manRect.right < skyscraperRect.left + 50 && manRect.bottom > skyscraperRect.top + 20) {
+        isClimbingRight = true
+
+
+
+
+
+    } else if (skyscraperRect.right - 40 > manRect.left && skyscraperRect.right - 50 < manRect.left && manRect.bottom > skyscraperRect.top + 20) {
+
+        isClimbingLeft = true
+
+    } else {
+        isClimbingRight = false;
+        isClimbingLeft = false;
+
+
+    }
+
+
+}
+
+//Climbing movement, can use w and s to move up and down at a constant speed while hugging the wall - also adds a climbing image. Also uses keystate function so no input delay
+
+function climbing() {
+    manElem.src = `./images/spiderman-climb.png`
+    yVelocity = 0
+    jumpResetClimb()
+    landed = false
+
+    if (keyState['w']) {
+        incrementCustomProperty(manElem, '--bottom', climbSpeed)
+    }
+    if (keyState['s'] && getCustomProperty(manElem, '--bottom') > floor) {
+        incrementCustomProperty(manElem, '--bottom', -climbSpeed)
+
+    }
+
+
+}
+
+//Making sure when jumping off a wall it doesnt auto set you back to climbing but moving character to other direciton slightly
+
+function wallJump(e) {
+    if (isClimbingLeft) {
+        if (e.code === 'Space') {
+            incrementCustomProperty(manElem, '--left', 20)
+        }
+    } else if (isClimbingRight) {
+        if (e.code === 'Space') {
+            incrementCustomProperty(manElem, '--left', -20)
+        }
+    }
+
+}
+//This function still allows one jump when leaving a wall
+
+function jumpResetClimb() {
+    isJumping = true
+    hasJumped = false
+    landed = false
+}
+
+//------------------------------------------
+
+//Roof Running functions- this one checks to see if man is in a specific zone on the roof to allow for frame as he can be moving quite fast in y-direction.
+//It then resets the image when landing and uses a landed variable to refresh this.
+//It also refreshes all jumps and sets velocity to 0. 
+//Second if function checks to see if man has left either side of roof and if so for him to start falling but still have a jump
+
+export function roofRunning(delta) {
+
+    const manRect = getManRect();
+    const skyscraperRect = getSkyscraperRect();
+
+    if (manRect.right - 30 > skyscraperRect.left && skyscraperRect.right - 30 > manRect.left && manRect.bottom - 40 < skyscraperRect.top && manRect.bottom - 8 > skyscraperRect.top) {
+
+
+        if (!landed) {
+            landed = true
+            manElem.src = `./images/spiderman-4.png`
+        }
+        isJumping = false
+        hasJumped = false
+        yVelocity = 0
+        frame()
+
+        //As high velocity and slow frames sometimes means man slips through roof, I have increased the capture range with the following funcitons moving his character up after
+        if (manRect.bottom - 30 < skyscraperRect.top && manRect.bottom - 18 > skyscraperRect.top) {
+            incrementCustomProperty(manElem, '--bottom', 10)
+        } else if (manRect.bottom - 40 < skyscraperRect.top && manRect.bottom - 30 > skyscraperRect.top) {
+            incrementCustomProperty(manElem, '--bottom', 20)
+        }
+
+
+    } else if (manRect.right < skyscraperRect.left || skyscraperRect.right < manRect.left) {
+        if (manRect.bottom - 23 < skyscraperRect.top) {
+            isJumping = true
+        } else return
+    }
+
+}
+
+function checkLose() {
+    const dinoRect = getDinoRect()
+    return getCactusRects().some(rect => isCollision(rect, dinoRect))
+}
+
+function isCollision(rect1, rect2) {
+    return (
+        rect1.left < rect2.right &&
+        rect1.top < rect2.bottom &&
+        rect1.right > rect2.left &&
+        rect1.bottom > rect2.top
+    )
+}

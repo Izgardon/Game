@@ -1,0 +1,5 @@
+$concreteColor: #283e51;
+$sunColor: radial-gradient(ellipse at center, #f90 0%, #fc0 60%, #ff0 100%);
+$dayTime:60s;
+$dayIncrement:(Calc($dayTime/5));
+$floor: 50px;

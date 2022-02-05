@@ -1,0 +1,85 @@
+    @import "./variables";
+    @import "./sun";
+    @import "./platforms";
+    @import "./man";
+    @import "./helpers";
+    @import "./skyscraper";
+    *,
+    *::after,
+    *::before {
+        box-sizing: border-box;
+        user-select: none;
+    }
+    
+    body {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 400vw;
+        overflow: hidden;
+        background-color: black;
+    }
+    
+    .skyscraper-background {
+        position: fixed;
+        z-index: 0;
+        width: 100%;
+        height: 50%;
+        bottom: 30px;
+        left: 0;
+        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/157557/dacb4faddcee7c677d4735690de52e44.png");
+    }
+    
+    .start-game {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -100%);
+        position: fixed;
+        font-family: 'Press Start 2P', cursive;
+        font-size: 4rem;
+        color: white;
+        z-index: 100;
+        text-align: center;
+        animation: flash 1.5s linear infinite;
+    }
+    
+    @keyframes flash {
+        to {
+            color: black;
+        }
+    }
+    
+    .animation-sky {
+        animation: daycycle $dayTime linear 0s forwards;
+    }
+    
+    @keyframes daycycle {
+        0% {
+            background-colour: rgba(25, 0, 51, 0.8)
+        }
+        16% {
+            background-color: rgba(175, 70, 10, 0.7);
+        }
+        40% {
+            background-color: rgba(0, 144, 240, 0.8);
+        }
+        48% {
+            background-color: rgba(0, 0, 255, 0.8);
+        }
+        60% {
+            background-color: rgba(0, 0, 140, 0.8);
+        }
+        75% {
+            background-color: rgba(193, 110, 0, 0.8);
+        }
+        82% {
+            background-color: rgba(231, 76, 60, 0.7);
+        }
+        95% {
+            background-color: rgba(25, 0, 51, 0.8);
+        }
+        100% {
+            background-color: rgba(0, 0, 0, 1)
+        }
+    }

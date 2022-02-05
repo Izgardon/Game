@@ -1,0 +1,38 @@
+ .skyscraper {
+     position: absolute;
+     bottom: 20px;
+     width: 150px;
+     padding: 30px;
+     display: flex;
+     justify-content: space-between;
+     flex-wrap: wrap;
+     background: linear-gradient(170deg, darken(#4b79a1, 5), darken(#283e51, 3));
+     border-radius: 6px;
+     box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.3);
+     border: black solid 1px;
+ }
+ 
+ .normal {
+     height: 300px;
+ }
+ 
+ .tall {
+     height: 450px;
+ }
+ 
+ .one {
+     left: 400px;
+ }
+ 
+ .two {
+     left: 800px;
+ }
+ 
+ .window {
+     height: 32px;
+     width: 32px;
+     margin-right: 5px;
+     background: linear-gradient(to bottom left, #fffc00 80%, white);
+     border-radius: 3px;
+     box-shadow: 0px 3px 6px transparentize(#fffc00, 0.7);
+ }

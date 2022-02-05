@@ -1,0 +1,10 @@
+.man {
+    --left: 0;
+    --bottom: 50;
+    position: absolute;
+    bottom: calc(var(--bottom)*1px);
+    height: 50px;
+    width: 50px;
+    left: calc(var(--left)*1px);
+    z-index: 100;
+}

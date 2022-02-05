@@ -1,0 +1,12 @@
+.concrete {
+    background-color: $concreteColor;
+}
+
+.concrete-floor {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: $floor;
+    bottom: 0px;
+    border-top: black solid 2px;
+}
