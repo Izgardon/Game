@@ -1,6 +1,6 @@
 import { getCustomProperty, setCustomProperty, incrementCustomProperty } from "./customProperty.js";
 
-import { getSkyscraperRect, getSkyscraperRects } from "./skyscraper.js";
+import { getSkyscraperRects } from "./skyscraper.js";
 
 
 
@@ -33,13 +33,21 @@ const gravity = 0.03
 const downSpeed = 1.1
 const climbSpeed = 5
 
-console.log(getSkyscraperRects())
-    //Functions
+
+//Functions
 
 //Function used to get the man's rectangle
 export function getManRect() {
     return manElem.getBoundingClientRect()
 }
+
+//Function used to check if specific collision parameters are met between the man and a building, parameter function is different for each scenario but function returns true if paramter function is true for all skyscrapers
+
+function checkCollision(whichCollision) {
+    const manRect = getManRect()
+    return getSkyscraperRects().some(rect => whichCollision(manRect, rect))
+}
+
 
 //setUpMan function runs when enter is pressed, adding the keydown functions and making sure man starts at beginning
 
@@ -201,30 +209,41 @@ function resetJump() {
 //Specific sides are noted as he can still move in the other direciton
 
 export function ifClimbing(delta) {
-    const manRect = getManRect();
-    const skyscraperRect = getSkyscraperRect();
 
-
-    if (manRect.right > skyscraperRect.left + 40 && manRect.right < skyscraperRect.left + 50 && manRect.bottom > skyscraperRect.top + 20) {
+    if (checkCollision(isCollisionRight)) {
         isClimbingRight = true
-
-
-
-
-
-    } else if (skyscraperRect.right - 40 > manRect.left && skyscraperRect.right - 50 < manRect.left && manRect.bottom > skyscraperRect.top + 20) {
-
+    } else if (checkCollision(isCollisionLeft)) {
         isClimbingLeft = true
-
     } else {
         isClimbingRight = false;
         isClimbingLeft = false;
-
-
     }
 
-
 }
+
+//Function checks if any of this areas intersect which specifies the man coming into contact with right side of any skyscraper
+function isCollisionRight(rect1, rect2) {
+    return (
+
+        rect1.right > rect2.left + 40 &&
+        rect1.right < rect2.left + 50 &&
+        rect1.bottom > rect2.top + 20
+    )
+}
+
+//As above for left side
+
+function isCollisionLeft(rect1, rect2) {
+    return (
+        rect2.right - 40 > rect1.left &&
+        rect2.right - 50 < rect1.left &&
+        rect1.bottom > rect2.top + 20
+    )
+}
+
+
+
+
 
 //Climbing movement, can use w and s to move up and down at a constant speed while hugging the wall - also adds a climbing image. Also uses keystate function so no input delay
 
@@ -275,48 +294,68 @@ function jumpResetClimb() {
 //Second if function checks to see if man has left either side of roof and if so for him to start falling but still have a jump
 
 export function roofRunning(delta) {
+    if (yVelocity > 0) return
 
-    const manRect = getManRect();
-    const skyscraperRect = getSkyscraperRect();
-
-    if (manRect.right - 30 > skyscraperRect.left && skyscraperRect.right - 30 > manRect.left && manRect.bottom - 40 < skyscraperRect.top && manRect.bottom - 8 > skyscraperRect.top) {
-
-
+    if (checkCollision(isCollisionRoofGeneral)) {
+        //Image reset function on landing, refreshes when other actions are taken
         if (!landed) {
             landed = true
             manElem.src = `./images/spiderman-4.png`
         }
+        //Sets him still, resets jumps and allows running
         isJumping = false
         hasJumped = false
         yVelocity = 0
         frame()
 
         //As high velocity and slow frames sometimes means man slips through roof, I have increased the capture range with the following funcitons moving his character up after
-        if (manRect.bottom - 30 < skyscraperRect.top && manRect.bottom - 18 > skyscraperRect.top) {
-            incrementCustomProperty(manElem, '--bottom', 10)
-        } else if (manRect.bottom - 40 < skyscraperRect.top && manRect.bottom - 30 > skyscraperRect.top) {
+        if (checkCollision(isCollisionRoofTooFast1)) {
+            incrementCustomProperty(manElem, '--bottom', 9)
+        } else if (checkCollision(isCollisionRoofTooFast2)) {
             incrementCustomProperty(manElem, '--bottom', 20)
         }
 
 
-    } else if (manRect.right < skyscraperRect.left || skyscraperRect.right < manRect.left) {
-        if (manRect.bottom - 23 < skyscraperRect.top) {
-            isJumping = true
-        } else return
-    }
+    } else if (checkCollision(isCollisionOffRoof)) {
+
+        isJumping = true
+    } else return
+
+
+
 
 }
 
-function checkLose() {
-    const dinoRect = getDinoRect()
-    return getCactusRects().some(rect => isCollision(rect, dinoRect))
-}
-
-function isCollision(rect1, rect2) {
+function isCollisionRoofGeneral(rect1, rect2) {
     return (
-        rect1.left < rect2.right &&
-        rect1.top < rect2.bottom &&
-        rect1.right > rect2.left &&
-        rect1.bottom > rect2.top
+
+        rect1.right - 10 > rect2.left &&
+        rect2.right - 10 > rect1.left &&
+        rect1.bottom - 40 < rect2.top &&
+        rect1.bottom - 8 > rect2.top
     )
+}
+
+function isCollisionRoofTooFast1(rect1, rect2) {
+    return (
+
+
+        rect1.bottom - 30 < rect2.top &&
+        rect1.bottom - 18 > rect2.top
+    )
+}
+
+function isCollisionRoofTooFast2(rect1, rect2) {
+    return (
+
+        rect1.bottom - 40 < rect2.top &&
+        rect1.bottom - 30 > rect2.top
+    )
+}
+
+function isCollisionOffRoof(rect1, rect2) {
+    return (
+
+        (rect1.right - 10 < rect2.left || rect2.right - 10 < rect1.left) && rect1.bottom - 30 < rect2.top)
+
 }

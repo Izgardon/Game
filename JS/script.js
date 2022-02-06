@@ -39,18 +39,21 @@ function update(time) {
 
 //Window Scrolling
 function scroll() {
-    let absoluteManLeft = getManRect().left
+    let manRect = getManRect()
     let manLeft = getCustomProperty(manElem, '--left')
+    let manBottom = getCustomProperty(manElem, '--bottom')
 
-    if (absoluteManLeft > 1000) {
-        moveScreenWithMan(manLeft - 1000)
+    if (manRect.left > 1000) {
+        moveScreenWithMan((manLeft - 1000), 0)
     }
-    if (absoluteManLeft < 300 && manLeft > 300) {
-        moveScreenWithMan((manLeft - 300))
+    if (manRect.left < 300 && manLeft > 300) {
+        moveScreenWithMan((manLeft - 300), 0)
+    } else if (manRect.top < 150) {
+        window.scrollBy(0, 50)
     }
 
-    function moveScreenWithMan(position) {
-        window.scroll(position, 0)
+    function moveScreenWithMan(positionX, positionY) {
+        window.scroll(positionX, positionY)
 
     }
 }

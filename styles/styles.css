@@ -127,6 +127,10 @@
   border: black solid 1px;
 }
 
+.small {
+  height: 200px;
+}
+
 .normal {
   height: 300px;
 }
@@ -141,6 +145,10 @@
 
 .two {
   left: 800px;
+}
+
+.three {
+  left: 1200px;
 }
 
 .window {
@@ -166,10 +174,11 @@
 }
 
 body {
-  position: absolute;
+  position: relative;
+  bottom: 0;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 110vh;
   width: 400vw;
   overflow: hidden;
   background-color: black;
