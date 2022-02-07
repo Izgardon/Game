@@ -61,24 +61,36 @@ export function setUpMan() {
 
     document.addEventListener("keydown", onJump)
     document.addEventListener("keydown", wallJump)
+    window.addEventListener('keydown', keyDownEvent)
+    window.addEventListener('keyup', keyUpEvent)
 
+}
+
+export function gameOver() {
+    document.removeEventListener("keydown", onJump)
+    document.removeEventListener("keydown", wallJump)
+    window.removeEventListener('keydown', keyDownEvent)
+    window.removeEventListener('keyup', keyUpEvent)
 }
 
 //----------------------------------------------
 
 //Running function
 
-//Removing input delay with a keystate function to just return true if a key is down
+//Removing input delay with a keystate function to just return true if a key is down. The event listeners are in setUpMan function.
 
-window.addEventListener('keydown', e => {
 
+
+export function keyDownEvent(e) {
     keyState[e.key] = true;
 
-}, true);
+}
 
-window.addEventListener('keyup', e => {
+export function keyUpEvent(e) {
     keyState[e.key] = false
-}, true)
+}
+
+
 
 
 //Main running function - adds a flip class for which direction he is going and also prevents character from going off left edge. Uses a custom property to incremet his position

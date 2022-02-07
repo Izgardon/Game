@@ -1,6 +1,6 @@
 'strict mode'
 
-import { ifClimbing, running, setUpMan, jumping, manElem, getManRect, roofRunning } from "./man.js";
+import { ifClimbing, running, setUpMan, jumping, manElem, getManRect, roofRunning, gameOver } from "./man.js";
 import { getCustomProperty, setCustomProperty } from "./customProperty.js";
 
 
@@ -14,6 +14,7 @@ let startGameSign = document.querySelector('.start-game')
 
 let lastTime
 let gameRunning
+let firstLoad = false;
 
 
 
@@ -33,11 +34,12 @@ function update(time) {
     jumping(delta)
     scroll()
     roofRunning()
+    gameWin()
 
 
     lastTime = time
     window.requestAnimationFrame(update)
-
+    console.log(firstLoad)
 }
 
 
@@ -65,24 +67,50 @@ function scroll() {
 
 //Game start and refresh
 
+
 document.addEventListener('keydown', startGame)
 
 function startGame(e) {
     if (gameRunning) return
     if (e.code === "Enter") {
-        window.requestAnimationFrame(update)
+
+
         setUpMan()
         window.scroll(0, 0);
+
+        startGameSign.classList.add('hidden')
+
+        //Starting the animations
         platformElems.forEach(element => {
             element.classList.add('animation-platform-background')
         });
-        ('animation-platform-background ')
-        startGameSign.classList.add('hidden')
-            //Starting the animations
         world.classList.add("animation-sky")
-        sunContainer.classList.add("animation-sun")
-            //Making sure it can only run once
+        sunContainer.classList.add("animation-sun");
+        //Making sure it can only run once
         gameRunning = true
+        if (!firstLoad) {
+            window.requestAnimationFrame(update)
+            firstLoad = true
+        }
     }
 
+}
+
+//Winning the game
+
+function gameWin() {
+    let manLeft = getCustomProperty(manElem, '--left');
+    if (manLeft >= 7000) {
+        gameRunning = false;
+        platformElems.forEach(element => {
+            element.classList.remove('animation-platform-background')
+        });
+
+        startGameSign.classList.remove('hidden')
+            //Starting the animations
+        world.classList.remove("animation-sky")
+        sunContainer.classList.remove("animation-sun");
+        gameOver()
+
+    }
 }

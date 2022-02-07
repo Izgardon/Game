@@ -91,7 +91,7 @@
 .concrete-floor {
   position: absolute;
   z-index: 10;
-  width: 9000px;
+  width: 21000px;
   height: 50px;
   bottom: 0px;
   border-top: black solid 2px;
@@ -452,7 +452,7 @@
 }
 
 #arm {
-  width: 4500px;
+  width: 7000px;
 }
 
 #arm #connector1 {
@@ -913,6 +913,69 @@
   width: 34px;
 }
 
+.contain-flag {
+  position: absolute;
+  bottom: -15px;
+  left: 7000px;
+  z-index: 1000;
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
+}
+
+.pole {
+  background-color: gray;
+  border: 1px solid #636262;
+  border-radius: 10px;
+  width: 10px;
+  height: 300px;
+}
+
+.pole:before {
+  position: absolute;
+  top: -14px;
+  left: -5px;
+  display: block;
+  background-color: gray;
+  border-radius: 50%;
+  border: 1px solid #636262;
+  width: 20px;
+  height: 20px;
+  content: '';
+}
+
+.flag {
+  position: absolute;
+  top: 8px;
+  z-index: 10;
+  background-color: #eb573b;
+  border: 1px solid #d64b38;
+  width: 150px;
+  height: 90px;
+}
+
+.flag-2 {
+  position: absolute;
+  top: 40px;
+  left: 90px;
+  z-index: 1;
+  background-color: #eb573b;
+  width: 150px;
+  height: 90px;
+}
+
+.flag-2:after {
+  position: absolute;
+  left: 100px;
+  top: -15px;
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  border-right: 60px solid black;
+  content: '';
+}
+
 *,
 *::after,
 *::before {
@@ -936,7 +999,7 @@ body {
   margin: 0;
   padding: 0;
   max-height: 100vh;
-  width: 4500px;
+  width: 7000px;
   background-color: black;
 }
 
