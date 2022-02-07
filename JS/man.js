@@ -63,10 +63,11 @@ export function setUpMan() {
     document.addEventListener("keydown", wallJump)
     window.addEventListener('keydown', keyDownEvent)
     window.addEventListener('keyup', keyUpEvent)
+    keyState['d'] = false;
 
 }
 
-export function gameOver() {
+export function gameOverKeyBindings() {
     document.removeEventListener("keydown", onJump)
     document.removeEventListener("keydown", wallJump)
     window.removeEventListener('keydown', keyDownEvent)

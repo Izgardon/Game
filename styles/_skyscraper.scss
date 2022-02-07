@@ -148,6 +148,53 @@
     left: 4150px;
 }
 
+.one-5 {
+    left: 4600px;
+}
+
+.one-6 {
+    $bottom: 200px;
+    left: 4800px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.one-7 {
+    $bottom: 300px;
+    left: 5150px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.one-8 {
+    $bottom: 500px;
+    width: 350px;
+    left: 4870px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.one-9 {
+    left: 5800px;
+}
+
+.twenty {
+    left: 5900px;
+    width: 200px;
+}
+
 .window {
     height: 29px;
     width: 29px;

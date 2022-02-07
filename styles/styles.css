@@ -75,17 +75,9 @@
 }
 
 .concrete {
-  background-color: #283e51;
-}
-
-.grass {
-  background-color: darkgreen;
-  z-index: 100;
-  width: 300px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 50px;
+  background-color: #26d840;
+  -webkit-box-shadow: 0px 0px 40px 20px #26d840;
+          box-shadow: 0px 0px 40px 20px #26d840;
 }
 
 .concrete-floor {
@@ -94,7 +86,6 @@
   width: 21000px;
   height: 50px;
   bottom: 0px;
-  border-top: black solid 2px;
 }
 
 .man {
@@ -267,6 +258,50 @@
 
 .one-4 {
   left: 4150px;
+}
+
+.one-5 {
+  left: 4600px;
+}
+
+.one-6 {
+  left: 4800px;
+  bottom: 200px;
+  position: absolute;
+}
+
+.one-6:before, .one-6:after {
+  height: 520px;
+}
+
+.one-7 {
+  left: 5150px;
+  bottom: 300px;
+  position: absolute;
+}
+
+.one-7:before, .one-7:after {
+  height: 420px;
+}
+
+.one-8 {
+  width: 350px;
+  left: 4870px;
+  bottom: 500px;
+  position: absolute;
+}
+
+.one-8:before, .one-8:after {
+  height: 220px;
+}
+
+.one-9 {
+  left: 5800px;
+}
+
+.twenty {
+  left: 5900px;
+  width: 200px;
 }
 
 .window {
@@ -512,7 +547,7 @@
   border-width: 0 20px 20px 0;
   display: block;
   height: 0;
-  left: 2500px;
+  left: 7000px;
   position: absolute;
   top: -25px;
   width: 0;
@@ -536,7 +571,7 @@
   left: 43px;
   position: absolute;
   top: -8px;
-  width: 2474px;
+  width: 6974px;
   z-index: 1;
 }
 
@@ -1014,6 +1049,16 @@ body {
   background-repeat: repeat-x;
 }
 
+.score {
+  position: fixed;
+  font-size: 5vmin;
+  right: 20px;
+  top: 60px;
+  z-index: 1000;
+  font-family: 'Press Start 2P', cursive;
+  text-shadow: white;
+}
+
 .start-game {
   left: 50%;
   top: 50%;
@@ -1027,6 +1072,16 @@ body {
   text-align: center;
   -webkit-animation: flash 1.5s linear infinite;
           animation: flash 1.5s linear infinite;
+}
+
+.center {
+  left: 50%;
+  top: 70%;
+  -webkit-transform: translate(-50%, -100%);
+          transform: translate(-50%, -100%);
+  color: white;
+  text-align: center;
+  font-size: 4rem;
 }
 
 @-webkit-keyframes flash {

@@ -138,7 +138,7 @@
         border-width: 0 20px 20px 0;
         display: block;
         height: 0;
-        left: 2500px;
+        left: $mapLength;
         position: absolute;
         top: -25px;
         width: 0;
@@ -160,7 +160,7 @@
         left: 43px;
         position: absolute;
         top: -8px;
-        width: 2474px;
+        width: $mapLength - 26;
         z-index: 1;
     }
 }
