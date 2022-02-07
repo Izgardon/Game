@@ -55,15 +55,19 @@ function checkCollisionPlatform(whichCollision) {
 
 
 //setUpMan function runs when enter is pressed, adding the keydown functions and making sure man starts at beginning
-
 export function setUpMan() {
-    setCustomProperty(manElem, '--left', 0)
+    window.scroll(0, 0);
+    setCustomProperty(manElem, '--left', 30);
+    setCustomProperty(manElem, '--bottom', 120)
+    keyState['d'] = false;
+}
+export function setUpManMovement() {
 
     document.addEventListener("keydown", onJump)
     document.addEventListener("keydown", wallJump)
     window.addEventListener('keydown', keyDownEvent)
     window.addEventListener('keyup', keyUpEvent)
-    keyState['d'] = false;
+
 
 }
 

@@ -82,15 +82,15 @@
 
 .concrete-floor {
   position: absolute;
-  z-index: 10;
+  z-index: 200;
   width: 21000px;
   height: 50px;
   bottom: 0px;
 }
 
 .man {
-  --left: 0;
-  --bottom: 50;
+  --left: 30;
+  --bottom: 120;
   position: absolute;
   bottom: calc(var(--bottom)*1px);
   height: 40px;
@@ -170,6 +170,17 @@
 
 .tall {
   height: 450px;
+}
+
+.starter {
+  background: #fc7e00;
+  left: 20px;
+  bottom: 100px;
+  position: absolute;
+}
+
+.starter:before, .starter:after {
+  height: 554px;
 }
 
 .one {
@@ -1084,6 +1095,71 @@ body {
   font-size: 4rem;
 }
 
+.animation-sky {
+  -webkit-animation: daycycle 60s linear 2s forwards;
+          animation: daycycle 60s linear 2s forwards;
+}
+
+.intro {
+  font-family: 'Press Start 2P', cursive;
+  display: none;
+  color: white;
+  font-size: 20px;
+  bottom: 600px;
+  left: 250px;
+  position: absolute;
+  width: 200px;
+  height: 20px;
+}
+
+.intro-message {
+  display: block;
+  overflow: hidden;
+  border-right: 10px solid orange;
+  white-space: nowrap;
+  letter-spacing: .15em;
+  -webkit-animation: typing 15s steps(80, end), blinking 0.5s step-end infinite;
+          animation: typing 15s steps(80, end), blinking 0.5s step-end infinite;
+}
+
+@-webkit-keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes blinking {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
+  }
+}
+
+@keyframes blinking {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
+  }
+}
+
 @-webkit-keyframes flash {
   to {
     color: black;
@@ -1094,11 +1170,6 @@ body {
   to {
     color: black;
   }
-}
-
-.animation-sky {
-  -webkit-animation: daycycle 60s linear 0s forwards;
-          animation: daycycle 60s linear 0s forwards;
 }
 
 @-webkit-keyframes daycycle {

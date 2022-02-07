@@ -1,6 +1,6 @@
 @import "./variables";
 @import "./sun";
-@import "./platforms";
+@import "./floor";
 @import "./man";
 @import "./helpers";
 @import "./skyscraper";
@@ -72,14 +72,54 @@ body {
     font-size: 4rem;
 }
 
+.animation-sky {
+    animation: daycycle $dayTime linear 2s forwards;
+}
+
+.intro {
+    font-family: 'Press Start 2P', cursive;
+    display: none;
+    color: white;
+    font-size: 20px;
+    bottom: 600px;
+    left: 250px;
+    position: absolute;
+    width: 200px;
+    height: 20px;
+}
+
+.intro-message {
+    display: block;
+    overflow: hidden;
+    border-right: 10px solid orange;
+    white-space: nowrap;
+    letter-spacing: .15em;
+    animation: typing 15s steps(80, end), blinking 0.5s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blinking {
+    from,
+    to {
+        border-color: transparent
+    }
+    50% {
+        border-color: orange;
+    }
+}
+
 @keyframes flash {
     to {
         color: black;
     }
-}
-
-.animation-sky {
-    animation: daycycle $dayTime linear 0s forwards;
 }
 
 @keyframes daycycle {

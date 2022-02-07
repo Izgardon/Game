@@ -55,6 +55,18 @@
     height: 450px;
 }
 
+.starter {
+    $bottom: 100px;
+    background: darken($craneColour, 15%);
+    left: 20px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 654-$bottom;
+    }
+}
+
 .one {
     left: 300px;
 }

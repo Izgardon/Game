@@ -1,16 +1,17 @@
 'strict mode'
 
-import { ifClimbing, running, setUpMan, jumping, manElem, getManRect, roofRunning, gameOverKeyBindings } from "./man.js";
+import { ifClimbing, running, setUpManMovement, jumping, manElem, getManRect, roofRunning, gameOverKeyBindings, setUpMan } from "./man.js";
 import { getCustomProperty, setCustomProperty } from "./customProperty.js";
 
 
 
 //Elements
-const platformElems = document.querySelectorAll(".platform")
+const platformElems = document.querySelectorAll(".platform-background")
 let world = document.querySelector('body')
 let sunContainer = document.querySelector('.sun-container')
 let startGameSign = document.querySelector('.start-game')
 let scoreElem = document.querySelector(".score")
+let introMessage = document.querySelector(".intro")
 
 let score = 0
 let lastTime
@@ -41,7 +42,7 @@ function update(time) {
 
     lastTime = time
     window.requestAnimationFrame(update)
-    console.log(score)
+
 }
 
 
@@ -72,7 +73,8 @@ function scroll() {
 function updateScore() {
     if (gameRunning) {
         let manLeft = getCustomProperty(manElem, '--left')
-        score = manLeft / 10;
+        score = manLeft - 30;
+        if (score < 0) return
         scoreElem.textContent = Math.floor(score)
     }
 }
@@ -88,8 +90,11 @@ function startGame(e) {
     if (e.code === "Enter") {
 
         classListOnStart()
+
+
         setUpMan()
-        window.scroll(0, 0);
+
+        window.setTimeout(gameIntervalSetUp, 4000);
 
         //Making sure it can only run once
         gameRunning = true
@@ -101,6 +106,13 @@ function startGame(e) {
     }
 
 }
+
+function gameIntervalSetUp() {
+    setUpManMovement()
+    introMessage.classList.remove('intro-message')
+}
+
+
 
 //Winning the game
 
@@ -116,7 +128,7 @@ function gameWin() {
 
 function classListOnStart() {
     scoreElem.textContent = 0;
-
+    introMessage.classList.add('intro-message')
     startGameSign.classList.add('hidden')
     scoreElem.classList.remove('center');
 
@@ -129,6 +141,7 @@ function classListOnStart() {
 }
 
 function classListOnEnd() {
+
     scoreElem.classList.add('center');
     startGameSign.classList.remove('hidden')
         //Preventing animations running twice
