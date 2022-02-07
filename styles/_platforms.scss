@@ -2,10 +2,20 @@
     background-color: $concreteColor;
 }
 
+.grass {
+    background-color: darkgreen;
+    z-index: 100;
+    width: 300px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: $floor;
+}
+
 .concrete-floor {
-    position: fixed;
-    z-index: 11;
-    width: 6000px;
+    position: absolute;
+    z-index: 10;
+    width: 2 * $mapLength;
     height: $floor;
     bottom: 0px;
     border-top: black solid 2px;

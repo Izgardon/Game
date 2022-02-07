@@ -158,7 +158,6 @@ function onJump(e) {
 
 export function jumping(delta) {
     //check to see if man is climbing (will add a special case later)
-
     if (isClimbingLeft || isClimbingRight) {
         climbing()
     } else {
@@ -324,7 +323,7 @@ export function roofRunning() {
         }
 
 
-    } else if (checkCollisionRoof(isCollisionOffRoof)) {
+    } else if (checkCollisionRoof(isCollisionOffRoof) || checkCollisionPlatform(isCollisionOffPlatform)) {
 
         isJumping = true
     } else return
@@ -382,9 +381,9 @@ function isCollisionPlatformGeneral(rect1, rect2) {
     )
 }
 
-/* function isCollisionOffPlatform(rect1, rect2) {
+function isCollisionOffPlatform(rect1, rect2) {
     return (
 
         (rect1.right - 10 < rect2.left || rect2.right - 10 < rect1.left) && rect1.bottom - 30 < rect2.top)
 
-} */
+}

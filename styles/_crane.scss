@@ -87,7 +87,7 @@
 }
 
 #arm {
-    width: 2500px;
+    width: $mapLength;
     #connector1 {
         background-color: $craneColour;
         display: block;

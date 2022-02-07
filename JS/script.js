@@ -4,7 +4,9 @@ import { ifClimbing, running, setUpMan, jumping, manElem, getManRect, roofRunnin
 import { getCustomProperty, setCustomProperty } from "./customProperty.js";
 
 
+
 //Elements
+const platformElems = document.querySelectorAll(".platform")
 let world = document.querySelector('body')
 let sunContainer = document.querySelector('.sun-container')
 let startGameSign = document.querySelector('.start-game')
@@ -71,6 +73,10 @@ function startGame(e) {
         window.requestAnimationFrame(update)
         setUpMan()
         window.scroll(0, 0);
+        platformElems.forEach(element => {
+            element.classList.add('animation-platform-background')
+        });
+        ('animation-platform-background ')
         startGameSign.classList.add('hidden')
             //Starting the animations
         world.classList.add("animation-sky")
