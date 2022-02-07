@@ -3,3 +3,9 @@ $sunColor: radial-gradient(ellipse at center, #f90 0%, #fc0 60%, #ff0 100%);
 $dayTime:60s;
 $dayIncrement:(Calc($dayTime/5));
 $floor: 50px;
+//Skyscraper and platform colours
+$skyscraper: linear-gradient(170deg, darken(#4b79a1, 5), darken(#283e51, 3));
+//Crane variables
+$bgColour: #666666;
+$craneColour: #ffa449;
+$craneSecondaryColour: #1e1b35;

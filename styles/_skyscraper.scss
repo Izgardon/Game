@@ -1,46 +1,102 @@
- .skyscraper {
-     position: absolute;
-     bottom: 20px;
-     width: 150px;
-     padding: 30px;
-     display: flex;
-     justify-content: space-between;
-     flex-wrap: wrap;
-     background: linear-gradient(170deg, darken(#4b79a1, 5), darken(#283e51, 3));
-     border-radius: 6px;
-     box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.3);
-     border: black solid 1px;
- }
- 
- .small {
-     height: 200px;
- }
- 
- .normal {
-     height: 300px;
- }
- 
- .tall {
-     height: 450px;
- }
- 
- .one {
-     left: 400px;
- }
- 
- .two {
-     left: 800px;
- }
- 
- .three {
-     left: 1200px;
- }
- 
- .window {
-     height: 32px;
-     width: 32px;
-     margin-right: 5px;
-     background: linear-gradient(to bottom left, #fffc00 80%, white);
-     border-radius: 3px;
-     box-shadow: 0px 3px 6px transparentize(#fffc00, 0.7);
- }
+@import "./variables";
+.skyscraper {
+    position: absolute;
+    bottom: 20px;
+    width: 120px;
+    height: 200px;
+    padding: 10px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background: $skyscraper;
+    border-radius: 6px;
+    box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.3);
+    border: black solid 1px;
+}
+
+.platform {
+    position: absolute;
+    height: 25px;
+    width: 120px;
+    z-index: 10;
+    background: radial-gradient(yellow, rgb(122, 122, 6));
+    box-shadow: 3px 6px 10px inset rgba(0, 0, 0, 0.3);
+    border: black solid 1px;
+    &:after {
+        content: "";
+        background: black;
+        height: 140px;
+        position: absolute;
+        width: 2px;
+        z-index: -1;
+        right: 0;
+        bottom: 0;
+    }
+    &:before {
+        content: "";
+        background: black;
+        height: 140px;
+        position: absolute;
+        width: 2px;
+        z-index: -1;
+        bottom: 0;
+    }
+}
+
+.small {
+    height: 250px;
+}
+
+.normal {
+    height: 300px;
+}
+
+.tall {
+    height: 450px;
+}
+
+.one {
+    left: 300px;
+}
+
+.two {
+    left: 600px;
+}
+
+.three {
+    $bottom: 400px;
+    left: 900px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.four {
+    left: 1100px;
+}
+
+.five {
+    left: 1200px;
+}
+
+.six {
+    left: 1450px;
+}
+
+.seven {
+    left: 1700px;
+}
+
+.window {
+    height: 29px;
+    width: 29px;
+    margin: 10px;
+    margin-bottom: 20px;
+    background: linear-gradient(to bottom left, #fffc00 80%, white);
+    border-radius: 3px;
+    box-shadow: 0px 3px 6px transparentize(#fffc00, 0.7);
+}

@@ -4,6 +4,7 @@
     @import "./man";
     @import "./helpers";
     @import "./skyscraper";
+    @import "./crane";
     *,
     *::after,
     *::before {
@@ -11,25 +12,31 @@
         user-select: none;
     }
     
+    html {
+        overflow: hidden;
+        max-height: 100vh;
+        min-height: 100vh;
+    }
+    
     body {
-        position: relative;
+        position: absolute;
         bottom: 0;
         margin: 0;
         padding: 0;
-        height: 110vh;
+        max-height: 100vh;
         width: 400vw;
-        overflow: hidden;
-        background-color: black;
+        background-color: white;
     }
     
     .skyscraper-background {
         position: fixed;
         z-index: 0;
         width: 100%;
-        height: 50%;
+        height: 60%;
         bottom: 30px;
         left: 0;
         background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/157557/dacb4faddcee7c677d4735690de52e44.png");
+        background-repeat: repeat-x
     }
     
     .start-game {

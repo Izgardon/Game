@@ -3,9 +3,9 @@
 }
 
 .concrete-floor {
-    position: absolute;
-    z-index: 2;
-    width: 100%;
+    position: fixed;
+    z-index: 11;
+    width: 6000px;
     height: $floor;
     bottom: 0px;
     border-top: black solid 2px;

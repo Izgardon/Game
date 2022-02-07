@@ -13,6 +13,10 @@ let startGameSign = document.querySelector('.start-game')
 let lastTime
 let gameRunning
 
+
+
+
+
 //Game loop time function
 function update(time) {
     if (lastTime == null) {
@@ -44,16 +48,14 @@ function scroll() {
     let manBottom = getCustomProperty(manElem, '--bottom')
 
     if (manRect.left > 1000) {
-        moveScreenWithMan((manLeft - 1000), 0)
+        moveScreenWithMan((manLeft - 1000))
     }
     if (manRect.left < 300 && manLeft > 300) {
-        moveScreenWithMan((manLeft - 300), 0)
-    } else if (manRect.top < 150) {
-        window.scrollBy(0, 50)
+        moveScreenWithMan((manLeft - 300))
     }
 
-    function moveScreenWithMan(positionX, positionY) {
-        window.scroll(positionX, positionY)
+    function moveScreenWithMan(positionX) {
+        window.scroll(positionX, 0)
 
     }
 }
@@ -68,7 +70,7 @@ function startGame(e) {
     if (e.code === "Enter") {
         window.requestAnimationFrame(update)
         setUpMan()
-        window.scroll(0, 0)
+        window.scroll(0, 0);
         startGameSign.classList.add('hidden')
             //Starting the animations
         world.classList.add("animation-sky")
