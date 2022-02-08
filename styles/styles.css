@@ -83,7 +83,7 @@
 .acid-floor {
   position: absolute;
   z-index: 200;
-  width: 21000px;
+  width: 30000px;
   height: 50px;
   bottom: 0px;
 }
@@ -321,6 +321,114 @@
   width: 200px;
 }
 
+.two-1 {
+  left: 6450px;
+  bottom: 100px;
+  position: absolute;
+}
+
+.two-1:before, .two-1:after {
+  height: 620px;
+}
+
+.two-2 {
+  left: 6600px;
+  bottom: 400px;
+  position: absolute;
+}
+
+.two-2:before, .two-2:after {
+  height: 320px;
+}
+
+.two-3 {
+  left: 6800px;
+}
+
+.two-4 {
+  left: 6900px;
+  bottom: 550px;
+  position: absolute;
+}
+
+.two-4:before, .two-4:after {
+  height: 170px;
+}
+
+.two-5 {
+  left: 7300px;
+  width: 300px;
+  bottom: 575px;
+  position: absolute;
+}
+
+.two-5:before, .two-5:after {
+  height: 145px;
+}
+
+.two-6 {
+  left: 6900px;
+  bottom: 550px;
+  position: absolute;
+}
+
+.two-6:before, .two-6:after {
+  height: 170px;
+}
+
+.two-7 {
+  left: 6950px;
+}
+
+.two-8 {
+  left: 7700px;
+}
+
+.two-9 {
+  left: 8200px;
+  width: 200px;
+}
+
+.thirty {
+  left: 8600px;
+  bottom: 250px;
+  position: absolute;
+}
+
+.thirty:before, .thirty:after {
+  height: 470px;
+}
+
+.three-1 {
+  left: 8750px;
+  bottom: 400px;
+  position: absolute;
+}
+
+.three-1:before, .three-1:after {
+  height: 320px;
+}
+
+.three-2 {
+  left: 8900px;
+  bottom: 550px;
+  position: absolute;
+}
+
+.three-2:before, .three-2:after {
+  height: 170px;
+}
+
+.three-3 {
+  left: 9300px;
+  width: 80px;
+}
+
+.final {
+  left: 9800px;
+  width: 300px;
+}
+
 .window {
   height: 29px;
   width: 29px;
@@ -504,7 +612,7 @@
 }
 
 #arm {
-  width: 7000px;
+  width: 10000px;
 }
 
 #arm #connector1 {
@@ -564,7 +672,7 @@
   border-width: 0 20px 20px 0;
   display: block;
   height: 0;
-  left: 7000px;
+  left: 4310px;
   position: absolute;
   top: -25px;
   width: 0;
@@ -588,7 +696,7 @@
   left: 43px;
   position: absolute;
   top: -8px;
-  width: 6974px;
+  width: 4285px;
   z-index: 1;
 }
 
@@ -967,9 +1075,9 @@
 
 .contain-flag {
   position: absolute;
-  bottom: -15px;
-  left: 7000px;
-  z-index: 1000;
+  bottom: 250px;
+  left: 10000px;
+  z-index: 100;
   -webkit-transform: scale(0.6);
           transform: scale(0.6);
 }
@@ -1040,7 +1148,8 @@
 }
 
 html {
-  overflow: hidden;
+  /*     overflow: hidden;
+ */
   max-height: 100vh;
   min-height: 100vh;
 }
@@ -1051,7 +1160,7 @@ body {
   margin: 0;
   padding: 0;
   max-height: 100vh;
-  width: 7000px;
+  width: 10000px;
   background-color: black;
 }
 
@@ -1085,7 +1194,7 @@ body {
   font-family: 'Press Start 2P', cursive;
   font-size: 4rem;
   color: white;
-  z-index: 100;
+  z-index: 1000;
   text-align: center;
   -webkit-animation: flash 1.5s linear infinite;
           animation: flash 1.5s linear infinite;

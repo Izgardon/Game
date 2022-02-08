@@ -1,9 +1,9 @@
 @import "./variables";
 .contain-flag {
     position: absolute;
-    bottom: -15px;
+    bottom: 250px;
     left: $mapLength;
-    z-index: 1000;
+    z-index: 100;
     transform: scale(0.6);
 }
 

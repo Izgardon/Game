@@ -207,6 +207,122 @@
     width: 200px;
 }
 
+.two-1 {
+    $bottom: 100px;
+    left: 6450px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.two-2 {
+    $bottom: 400px;
+    left: 6600px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.two-3 {
+    left: 6800px;
+}
+
+.two-4 {
+    $bottom: 550px;
+    left: 6900px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.two-5 {
+    $bottom: 575px;
+    left: 7300px;
+    width: 300px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.two-6 {
+    $bottom: 550px;
+    left: 6900px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.two-7 {
+    left: 6950px;
+}
+
+.two-8 {
+    left: 7700px;
+}
+
+.two-9 {
+    left: 8200px;
+    width: 200px;
+}
+
+.thirty {
+    $bottom: 250px;
+    left: 8600px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.three-1 {
+    $bottom: 400px;
+    left: 8750px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.three-2 {
+    $bottom: 550px;
+    left: 8900px;
+    bottom: $bottom;
+    position: absolute;
+    &:before,
+    &:after {
+        height: 720-$bottom;
+    }
+}
+
+.three-3 {
+    left: 9300px;
+    width: 80px;
+}
+
+.final {
+    left: 9800px;
+    width: 300px;
+}
+
 .window {
     height: 29px;
     width: 29px;

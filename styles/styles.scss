@@ -14,7 +14,8 @@
 }
 
 html {
-    overflow: hidden;
+    /*     overflow: hidden;
+ */
     max-height: 100vh;
     min-height: 100vh;
 }
@@ -58,7 +59,7 @@ body {
     font-family: 'Press Start 2P', cursive;
     font-size: 4rem;
     color: white;
-    z-index: 100;
+    z-index: 1000;
     text-align: center;
     animation: flash 1.5s linear infinite;
 }

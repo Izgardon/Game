@@ -125,7 +125,7 @@ function gameIntervalSetUp() {
 
 function gameWin() {
     let manLeft = getCustomProperty(manElem, '--left');
-    if (manLeft >= 7000) {
+    if (manLeft >= 10000) {
         stopAllMovement()
         classListOnEnd()
         gameOverKeyBindings()
