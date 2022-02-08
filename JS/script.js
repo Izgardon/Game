@@ -1,6 +1,6 @@
 'strict mode'
 
-import { ifClimbing, running, setUpManMovement, jumping, manElem, getManRect, roofRunning, gameOverKeyBindings, setUpMan, sinking, stopAllMovement } from "./man.js";
+import { ifClimbing, running, setUpManMovement, jumping, manElem, getManRect, roofRunning, gameOverKeyBindings, setUpMan, stopAllMovement } from "./man.js";
 import { getCustomProperty, setCustomProperty } from "./customProperty.js";
 
 
@@ -17,6 +17,7 @@ let score = 0
 let lastTime
 let gameRunning
 let firstLoad = false;
+let gameLostTimeout
 
 
 
@@ -38,7 +39,7 @@ function update(time) {
     roofRunning()
     gameWin()
     updateScore()
-    gameLost(delta)
+
 
 
     lastTime = time
@@ -72,12 +73,12 @@ function scroll() {
 //Updating score with mans position
 
 function updateScore() {
-    if (gameRunning) {
-        let manLeft = getCustomProperty(manElem, '--left')
-        score = manLeft - 30;
-        if (score < 0) return
-        scoreElem.textContent = Math.floor(score)
-    }
+
+    let manLeft = getCustomProperty(manElem, '--left')
+    score = manLeft - 30;
+    if (score < 0) return
+    scoreElem.textContent = Math.floor(score)
+
 }
 
 
@@ -86,18 +87,19 @@ function updateScore() {
 
 document.addEventListener('keydown', startGame)
 
+
+
 function startGame(e) {
     if (gameRunning) return
     if (e.code === "Enter") {
-        stopAllMovement()
-            //Adds all the classlists ready such as animations
+
+        //Adds all the classlists ready such as animations
         classListOnStart()
 
         //Initial position set up of man
         setUpMan()
 
         window.setTimeout(gameIntervalSetUp, 4000);
-
         //Making sure it can only run once
         gameRunning = true
             //Making sure it doesn't run 2 timeloops at once
@@ -112,6 +114,9 @@ function startGame(e) {
 function gameIntervalSetUp() {
     setUpManMovement()
     introMessage.classList.remove('intro-message')
+    gameLostTimeout = window.setTimeout(gameLost, 58000);
+
+
 }
 
 
@@ -129,18 +134,18 @@ function gameWin() {
     }
 }
 
-function gameLost(delta) {
-    if (getCustomProperty(manElem, "--bottom") <= 55) {
-        stopAllMovement()
-        sinking(delta)
-
-        window.setTimeout(classListOnEnd(), 200)
-        gameOverKeyBindings()
+export function gameLost() {
 
 
-    }
+    stopAllMovement()
+
+    classListOnEnd()
+    gameOverKeyBindings()
+
 
 }
+
+
 
 
 
@@ -163,12 +168,15 @@ function classListOnStart() {
 
     world.classList.remove("animation-sky")
     sunContainer.classList.remove("animation-sun");
+    setTimeout(() => {
 
-    platformElems.forEach(element => {
-        element.classList.add('animation-platform-background')
-    });
-    world.classList.add("animation-sky")
-    sunContainer.classList.add("animation-sun");
+        ;
+        platformElems.forEach(element => {
+            element.classList.add('animation-platform-background')
+        });
+        world.classList.add("animation-sky")
+        sunContainer.classList.add("animation-sun");
+    }, 20)
 }
 //All the removed classes so animations can be reset without refreshing page
 function classListOnEnd() {
@@ -177,6 +185,8 @@ function classListOnEnd() {
     scoreElem.classList.add('center');
     startGameSign.classList.remove('hidden')
     startGameSign.innerText = "FAILURE  Press Enter to Try Again"
-        //Preventing animations running twice
+
+    clearTimeout(gameLostTimeout)
+
 
 }

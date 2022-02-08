@@ -1,12 +1,17 @@
-.concrete {
+.acid {
     background-color: #26d840;
-    box-shadow: 0px 0px 40px 20px #26d840;
+    box-shadow: 0px 0px 200px 80px #26d840;
 }
 
-.concrete-floor {
+.acid-floor {
     position: absolute;
     z-index: 200;
     width: 3 * $mapLength;
     height: $floor;
     bottom: 0px;
+}
+
+.glow {
+    background-color: #26d840;
+    box-shadow: 0px 0px 15px 10px #26d840;
 }

@@ -2,6 +2,8 @@ import { getCustomProperty, setCustomProperty, incrementCustomProperty } from ".
 
 import { getSkyscraperRects, getPlatformRects } from "./skyscraper.js";
 
+import { gameLost } from "./script.js";
+
 
 
 
@@ -32,7 +34,7 @@ const jumpSpeed = 10;
 const gravity = 0.03
 const downSpeed = 1.1
 const climbSpeed = 5
-const deathSpeed = 0.1
+const deathSpeed = 0.05
 
 
 //Functions
@@ -60,6 +62,9 @@ export function setUpMan() {
     window.scroll(0, 0);
     setCustomProperty(manElem, '--left', 30);
     setCustomProperty(manElem, '--bottom', 120)
+    manElem.src = `./images/spiderman-4.png`
+    manElem.classList.remove("flip")
+
 
 }
 export function setUpManMovement() {
@@ -205,10 +210,18 @@ export function jumping(delta) {
 
 
     }
+    //Function to check if man is dead, calls two other functions that handle game over
+
+    if (getCustomProperty(manElem, "--bottom") <= 55) {
+        sinking(delta)
+        gameLost()
+
+    }
 }
 //When man falls into acid this function will be called
-export function sinking(delta) {
-    yVelocity = -0.2;
+
+function sinking(delta) {
+    yVelocity = -0.1;
 
     manElem.src = `./images/spiderman-jump.png`
     yVelocity -= gravity * delta * deathSpeed
