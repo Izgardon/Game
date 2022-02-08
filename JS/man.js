@@ -32,6 +32,7 @@ const jumpSpeed = 10;
 const gravity = 0.03
 const downSpeed = 1.1
 const climbSpeed = 5
+const deathSpeed = 0.1
 
 
 //Functions
@@ -54,12 +55,12 @@ function checkCollisionPlatform(whichCollision) {
 }
 
 
-//setUpMan function runs when enter is pressed, adding the keydown functions and making sure man starts at beginning
+//setUpMan and setUpManMovement functions runs when enter is pressed (and movement 5 seconds later), adding the keydown functions and making sure man starts at beginning
 export function setUpMan() {
     window.scroll(0, 0);
     setCustomProperty(manElem, '--left', 30);
     setCustomProperty(manElem, '--bottom', 120)
-    keyState['d'] = false;
+
 }
 export function setUpManMovement() {
 
@@ -77,7 +78,12 @@ export function gameOverKeyBindings() {
     window.removeEventListener('keydown', keyDownEvent)
     window.removeEventListener('keyup', keyUpEvent)
 }
-
+//To stop man running when not meant to be
+export function stopAllMovement() {
+    keyState['d'] = false;
+    keyState['a'] = false;
+    keyState['s'] = false;
+}
 //----------------------------------------------
 
 //Running function
@@ -187,11 +193,7 @@ export function jumping(delta) {
         yVelocity -= gravity * delta;
         manElem.src = `./images/spiderman-jump.png`
             //Landing on the ground
-        if (getCustomProperty(manElem, "--bottom") <= floor) {
 
-            resetJump()
-
-        }
     }
 
 
@@ -204,21 +206,22 @@ export function jumping(delta) {
 
     }
 }
+//When man falls into acid this function will be called
+export function sinking(delta) {
+    yVelocity = -0.2;
 
-
-
-
-//Reset after landing on ground/platform
-
-function resetJump() {
-    manElem.src = `./images/spiderman-4.png`
-    setCustomProperty(manElem, "--bottom", floor)
-    isJumping = false
-    hasJumped = false
-
-    landed = false
+    manElem.src = `./images/spiderman-jump.png`
+    yVelocity -= gravity * delta * deathSpeed
+    incrementCustomProperty(manElem, "--bottom", yVelocity)
 
 }
+
+
+
+
+
+
+
 
 
 //--------------------------------------------------

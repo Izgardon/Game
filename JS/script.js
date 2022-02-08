@@ -1,6 +1,6 @@
 'strict mode'
 
-import { ifClimbing, running, setUpManMovement, jumping, manElem, getManRect, roofRunning, gameOverKeyBindings, setUpMan } from "./man.js";
+import { ifClimbing, running, setUpManMovement, jumping, manElem, getManRect, roofRunning, gameOverKeyBindings, setUpMan, sinking, stopAllMovement } from "./man.js";
 import { getCustomProperty, setCustomProperty } from "./customProperty.js";
 
 
@@ -38,6 +38,7 @@ function update(time) {
     roofRunning()
     gameWin()
     updateScore()
+    gameLost(delta)
 
 
     lastTime = time
@@ -68,7 +69,7 @@ function scroll() {
     }
 }
 
-//Updating score
+//Updating score with mans position
 
 function updateScore() {
     if (gameRunning) {
@@ -88,10 +89,11 @@ document.addEventListener('keydown', startGame)
 function startGame(e) {
     if (gameRunning) return
     if (e.code === "Enter") {
-
+        stopAllMovement()
+            //Adds all the classlists ready such as animations
         classListOnStart()
 
-
+        //Initial position set up of man
         setUpMan()
 
         window.setTimeout(gameIntervalSetUp, 4000);
@@ -106,7 +108,7 @@ function startGame(e) {
     }
 
 }
-
+//Delayed function that adds all the keydown events to move the man and clears the screen of words
 function gameIntervalSetUp() {
     setUpManMovement()
     introMessage.classList.remove('intro-message')
@@ -114,41 +116,67 @@ function gameIntervalSetUp() {
 
 
 
-//Winning the game
+//Winning the game when the flag is reached, will differentiate it from a loss
 
 function gameWin() {
     let manLeft = getCustomProperty(manElem, '--left');
     if (manLeft >= 7000) {
-        gameRunning = false;
+        stopAllMovement()
         classListOnEnd()
         gameOverKeyBindings()
+        startGameSign.innerText = "Congratulations! - Press Enter to Play Again"
 
     }
 }
 
+function gameLost(delta) {
+    if (getCustomProperty(manElem, "--bottom") <= 55) {
+        stopAllMovement()
+        sinking(delta)
+
+        window.setTimeout(classListOnEnd(), 200)
+        gameOverKeyBindings()
+
+
+    }
+
+}
+
+
+
+
+
+
+
+
+//All the things that need to be added when game begins
 function classListOnStart() {
     scoreElem.textContent = 0;
     introMessage.classList.add('intro-message')
     startGameSign.classList.add('hidden')
     scoreElem.classList.remove('center');
 
-    //Starting the animations
-    platformElems.forEach(element => {
-        element.classList.add('animation-platform-background')
-    });
-    world.classList.add("animation-sky")
-    sunContainer.classList.add("animation-sun");
-}
-
-function classListOnEnd() {
-
-    scoreElem.classList.add('center');
-    startGameSign.classList.remove('hidden')
-        //Preventing animations running twice
+    //Starting the animations(removing and readding)
     platformElems.forEach(element => {
         element.classList.remove('animation-platform-background')
     });
 
     world.classList.remove("animation-sky")
     sunContainer.classList.remove("animation-sun");
+
+    platformElems.forEach(element => {
+        element.classList.add('animation-platform-background')
+    });
+    world.classList.add("animation-sky")
+    sunContainer.classList.add("animation-sun");
+}
+//All the removed classes so animations can be reset without refreshing page
+function classListOnEnd() {
+    gameRunning = false;
+
+    scoreElem.classList.add('center');
+    startGameSign.classList.remove('hidden')
+    startGameSign.innerText = "FAILURE  Press Enter to Try Again"
+        //Preventing animations running twice
+
 }
