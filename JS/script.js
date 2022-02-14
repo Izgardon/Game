@@ -30,7 +30,7 @@ function update(time) {
         window.requestAnimationFrame(update)
         return
     }
-    const delta = time - lastTime
+    const delta = 15 /* time - lastTime */
 
     ifClimbing()
     running()
