@@ -5,3 +5,16 @@
 .hidden {
     display: none;
 }
+
+.center {
+    left: 50%;
+    top: 70%;
+    transform: translate(-50%, -100%);
+    color: white;
+    text-align: center;
+    font-size: 4rem;
+}
+
+.centerGo {
+    transform: translateX(500px);
+}

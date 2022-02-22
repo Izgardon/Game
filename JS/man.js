@@ -333,7 +333,8 @@ function jumpResetClimb() {
 //It also refreshes all jumps and sets velocity to 0. 
 //Second if function checks to see if man has left either side of roof and if so for him to start falling but still have a jump
 
-export function roofRunning() {
+export function roofRunning(delta) {
+
     if (yVelocity > 0) return
 
     if (checkCollisionRoof(isCollisionRoofGeneral) || checkCollisionPlatform(isCollisionPlatformGeneral)) {
@@ -358,7 +359,15 @@ export function roofRunning() {
 
     } else if (checkCollisionRoof(isCollisionOffRoof) || checkCollisionPlatform(isCollisionOffPlatform)) {
 
-        isJumping = true
+        if (isJumping || hasJumped) return
+        incrementCustomProperty(manElem, "--bottom", yVelocity);
+        yVelocity -= gravity * delta;
+
+
+
+
+
+
     } else return
 
 
@@ -401,6 +410,8 @@ function isCollisionOffRoof(rect1, rect2) {
         (rect1.right - 10 < rect2.left || rect2.right - 10 < rect1.left) && rect1.bottom - 30 < rect2.top)
 
 }
+
+
 
 //Platform collision functions
 

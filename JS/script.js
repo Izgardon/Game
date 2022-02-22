@@ -36,7 +36,7 @@ function update(time) {
     running()
     jumping(delta)
     scroll()
-    roofRunning()
+    roofRunning(delta)
     gameWin()
     updateScore()
 
@@ -113,12 +113,18 @@ function startGame(e) {
 //Delayed function that adds all the keydown events to move the man and clears the screen of words
 function gameIntervalSetUp() {
     setUpManMovement()
+
     introMessage.classList.remove('intro-message')
+    startGameSign.classList.remove('hidden')
+    startGameSign.innerText = "GO!"
+    window.setTimeout(clearText, 1000)
     gameLostTimeout = window.setTimeout(gameLost, 58000);
 
 
 }
-
+const clearText = function() {
+    startGameSign.classList.add('hidden')
+}
 
 
 //Winning the game when the flag is reached, will differentiate it from a loss

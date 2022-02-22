@@ -63,15 +63,6 @@ body {
     animation: flash 1.5s linear infinite;
 }
 
-.center {
-    left: 50%;
-    top: 70%;
-    transform: translate(-50%, -100%);
-    color: white;
-    text-align: center;
-    font-size: 4rem;
-}
-
 .animation-sky {
     animation: daycycle $dayTime linear 2s forwards;
 }

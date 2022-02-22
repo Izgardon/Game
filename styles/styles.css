@@ -114,6 +114,21 @@
   display: none;
 }
 
+.center {
+  left: 50%;
+  top: 70%;
+  -webkit-transform: translate(-50%, -100%);
+          transform: translate(-50%, -100%);
+  color: white;
+  text-align: center;
+  font-size: 4rem;
+}
+
+.centerGo {
+  -webkit-transform: translateX(500px);
+          transform: translateX(500px);
+}
+
 .skyscraper {
   position: absolute;
   bottom: 20px;
@@ -1197,16 +1212,6 @@ body {
   text-align: center;
   -webkit-animation: flash 1.5s linear infinite;
           animation: flash 1.5s linear infinite;
-}
-
-.center {
-  left: 50%;
-  top: 70%;
-  -webkit-transform: translate(-50%, -100%);
-          transform: translate(-50%, -100%);
-  color: white;
-  text-align: center;
-  font-size: 4rem;
 }
 
 .animation-sky {
