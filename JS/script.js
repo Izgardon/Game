@@ -42,6 +42,7 @@ function update(time) {
 
 
 
+
     lastTime = time
     window.requestAnimationFrame(update)
 
@@ -131,7 +132,7 @@ const clearText = function() {
 
 function gameWin() {
     let manLeft = getCustomProperty(manElem, '--left');
-    if (manLeft >= 10000) {
+    if (manLeft >= 10032) {
         stopAllMovement()
         classListOnEnd()
         gameOverKeyBindings()

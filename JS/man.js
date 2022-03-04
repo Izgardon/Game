@@ -213,6 +213,7 @@ export function jumping(delta) {
     //Function to check if man is dead, calls two other functions that handle game over
 
     if (getCustomProperty(manElem, "--bottom") <= 55) {
+
         sinking(delta)
         gameLost()
 
@@ -338,6 +339,7 @@ export function roofRunning(delta) {
     if (yVelocity > 0) return
 
     if (checkCollisionRoof(isCollisionRoofGeneral) || checkCollisionPlatform(isCollisionPlatformGeneral)) {
+
         //Image reset function on landing, refreshes when other actions are taken
         if (!landed) {
             landed = true
@@ -349,6 +351,7 @@ export function roofRunning(delta) {
         yVelocity = 0
         frame()
 
+
         //As high velocity and slow frames sometimes means man slips through roof, I have increased the capture range with the following funcitons moving his character up after
         if (checkCollisionRoof(isCollisionRoofTooFast1)) {
             incrementCustomProperty(manElem, '--bottom', 9)
@@ -359,9 +362,10 @@ export function roofRunning(delta) {
 
     } else if (checkCollisionRoof(isCollisionOffRoof) || checkCollisionPlatform(isCollisionOffPlatform)) {
 
+
         if (isJumping || hasJumped) return
-        incrementCustomProperty(manElem, "--bottom", yVelocity);
-        yVelocity -= gravity * delta;
+
+        window.setTimeout(jumpFix, 50);
 
 
 
@@ -374,10 +378,15 @@ export function roofRunning(delta) {
 
 
 }
+//This timeout on function allows game to feel smoother and less punishing on jump times to still get his double jump
+function jumpFix() {
+    isJumping = true
+}
 
 //Building collision functions
 
 function isCollisionRoofGeneral(rect1, rect2) {
+
     return (
 
         rect1.right - 10 > rect2.left &&
@@ -388,6 +397,7 @@ function isCollisionRoofGeneral(rect1, rect2) {
 }
 
 function isCollisionRoofTooFast1(rect1, rect2) {
+
     return (
 
 
@@ -405,6 +415,7 @@ function isCollisionRoofTooFast2(rect1, rect2) {
 }
 
 function isCollisionOffRoof(rect1, rect2) {
+
     return (
 
         (rect1.right - 10 < rect2.left || rect2.right - 10 < rect1.left) && rect1.bottom - 30 < rect2.top)
